@@ -15,11 +15,11 @@
          width: 800px; 
          height: 600px;
       }
-      /*html, body, #map-canvas {
+      html, body, #map-canvas {
         height: 100%;
         margin: 0px;
         padding: 0px
-      }*/
+      }
     </style>
 
    <!-- ADD YOUR OWN GOOGLE MAPS API KEY HERE! -->
@@ -87,8 +87,8 @@
                var t = pp.split(",");
                t[0] = parseFloat(t[0]).toFixed(5);
                t[1] = parseFloat(t[1]).toFixed(5);
-               //console.log("t[0] (lat): ", t[0]);
-               //console.log("t[1] (lng): ", t[1]);
+               console.log("t[0] (lat): ", t[0]);
+               console.log("t[1] (lng): ", t[1]);
                return t;
       }
 
@@ -97,7 +97,7 @@
                var bl = bbox.length;
                for (var i=0; i<bl; i++) {
                      t[i] = parseFloat(t[i]).toFixed(5);
-                     //console.log("  t[" + i + "]: ", t[i]);
+                     console.log("  t[" + i + "]: ", t[i]);
                }
                return t;
       }
@@ -106,14 +106,14 @@
       // Because Flighradar (and others) API are using NW and SE corners,
       // we swap the indexes from 0123 to 2103. 
       // We also truncate the lat/lon to 5 decimals.
-      //Number.prototype.reMapBB = function() { ... }
+      Number.prototype.reMapBB = function() { ... }
       function swap(bbox) {
               var t = bbox.slice();
               t[0] = bbox[2];
               t[2] = bbox[0];
               for (var i=0; i<=3; i++) {
                       t[i] = parseFloat(t[i]).toFixed(5);
-                      //console.log("  t[" + i + "]: ", t[i]);
+                      console.log("  t[" + i + "]: ", t[i]);
               }
               return t;
       }
@@ -158,8 +158,8 @@
       };
 
       function reset() {
-         //setMapOnAll(null);   // hide all markers
-         //markers = [];        // delete all markers
+         setMapOnAll(null);   // hide all markers
+         markers = [];        // delete all markers
          initialize();
          compute();
       }
@@ -204,12 +204,12 @@
             // whereas Flightradar24 API are using NW and SE coners!
             //# radar(LatMax/North, LonMin/West, LatMin/South, LonMax/East)
             var bounds = null;
-            /*var bounds = {
+            var bounds = {
                   north: 35.0,   // pointA.destinationPoint(0, radius),          // N: 35.0 (lat)
                   south: 33.0,   // pointA.destinationPoint(180, radius),        // S: 33.0 (lat)
                   east:  16.1,   // pointA.destinationPoint(270, radius),        // E: 16.1 (lon)
                   west:  15.1    // pointA.destinationPoint(90, radius)          // W: 15.1 (lon)
-            };*/
+            };
             
             // Define the 2 points: [CircleCenter, PointR] 
             var CtoR = [
@@ -242,12 +242,12 @@
                fillColor: '#00FF00',
                fillOpacity: 0.1,
                bounds: bounds,
-               //title: 'Flightradar24 Bounding Box',
+               title: 'Flightradar24 Bounding Box',
                map: map
             });
 
             // Show marker at circle center
-            //new google.maps.Marker({
+            new google.maps.Marker({
             myCC = new google.maps.Marker({
                position: pointA,
                draggable: true,         // to allow moving it around
@@ -273,7 +273,7 @@
                strokeColor: '#000000',
                strokeOpacity: 1.0,
                strokeWeight: 2,
-               //title: 'Radar Radius [km]',
+               title: 'Radar Radius [km]',
                map: map
             });
 
@@ -289,7 +289,7 @@
             console.log("GMaps Rectangle boundary box:")
             console.log(bbTrunc(barr).toString());                // string
 
-            //debugLog(pointA);
+            debugLog(pointA);
 
             google.maps.event.addListener(map, 'click', function() {  // mouseover
                alert("Circle Radius is "+ radius + " km.\nRectangle Bounding Box:\n" + swap(barr)); // bounds );
@@ -308,13 +308,13 @@
             });
 
             result.status = "OK";
-            //document.getElementById('status').value = "ok";
+            document.getElementById('status').value = "ok";
          } 
          catch (e) {
             result.status = "ERROR: " + e.message;
          }
          document.getElementById('status').value = result.status;
-         //return result;
+         return result;
    };
 
    initialize();
